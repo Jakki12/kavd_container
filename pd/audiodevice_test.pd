@@ -1,0 +1,4 @@
+#N canvas 629 449 450 482 10;
+#X obj 75 218 audiosettings;
+#X msg 75 187 params @output 2 2;
+#X connect 1 0 0 0;

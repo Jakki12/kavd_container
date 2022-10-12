@@ -1,0 +1,19 @@
+startup läuft über:
+
+/lib/systemd/system/rspstart.service
+
+
+
+
+#output device: resource busy, wenn mit -nogui und rspstart.service gestartet wird:
+
+>>pulse audio entfernen:
+
+sudo apt-get remove pulseaudio
+sudo apt autoremove
+sudo /etc/init.d/alsa-utils reset
+sudo reboot
+
+
+
+
