@@ -48,8 +48,8 @@ byte sensValues[sensValuesArraySize];
 //RECEIVE STUFF
 const unsigned int MAX_MESSAGE_LENGTH = 20; //max allowed length of incoming dim-val data
 char terminatingChar = '\@'; //define terminating character for receive-loop
-//const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-const int pwmPins[SONAR_NUM] = {2, 3, 4};
+const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+//const int pwmPins[SONAR_NUM] = {2, 3, 4};
 
 
 void setup() {

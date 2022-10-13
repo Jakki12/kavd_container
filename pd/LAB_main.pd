@@ -1,4 +1,4 @@
-#N canvas 22 142 1583 831 12;
+#N canvas 0 23 1280 751 12;
 #X obj -101 42 loadbang;
 #X obj 350 94 r start_gui_generation;
 #X obj -29 42 bng 30 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -51,22 +51,13 @@
 #X connect 18 0 10 0;
 #X restore -101 88 pd init;
 #N canvas 78 196 1132 576 guisubpatch 0;
-#X obj 30 45 gui_abs 0_0 0_0 0 0;
-#X obj 60 45 gui_abs 0_0 0_1 1 0;
-#X obj 90 45 gui_abs 0_0 0_2 2 0;
-#X obj 30 75 gui_abs 0_0 1_0 3 0;
-#X obj 60 75 gui_abs 0_0 1_1 4 0;
-#X obj 90 75 gui_abs 0_0 1_2 5 0;
-#X obj 30 105 gui_abs 0_0 2_0 6 0;
-#X obj 60 105 gui_abs 0_0 2_1 7 0;
-#X obj 90 105 gui_abs 0_0 2_2 8 0;
 #X coords 0 -1 1 1 620 270 1 20 20;
 #X restore -100 314 pd guisubpatch;
 #X obj 17 43 bng 30 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 17 78 s start;
 #X obj 351 68 s start_gui_generation;
-#N canvas 105 23 921 417 processingsubpatch 0;
+#N canvas 15 63 921 417 processingsubpatch 0;
 #X obj 200 30 processing_abs 0_0 0_0 0 0;
 #X obj 400 30 processing_abs 0_0 0_1 1 0;
 #X obj 600 30 processing_abs 0_0 0_2 2 0;
@@ -453,12 +444,12 @@ element \; when it is dynamically created;
 #X connect 43 2 37 0;
 #X connect 43 3 38 0;
 #X restore 548 129 pd processing_patch_generation;
-#N canvas 1281 455 557 393 controlpanel 0;
+#N canvas 511 201 557 393 controlpanel 1;
 #X obj 112 136 tgl 40 1 empty empty enable_sensor_data 0 -10 0 10 -4032
 -1 -1 1 1;
 #X obj 112 346 s sensor_enable;
-#X obj 243 138 hsl 90 40 0 5 0 0 empty lamp_decay_rcv Lamp_Decay_0.505618_Sek
--2 -8 0 10 -257985 -1 -1 0 1;
+#X obj 243 138 hsl 90 40 0 5 0 0 empty lamp_decay_rcv Lamp_Decay_0.224719_Sek
+-2 -8 0 10 -257985 -1 -1 400 1;
 #X floatatom 240 195 5 0 0 0 - - -;
 #X obj 240 347 s lamp_decay;
 #X obj 240 316 * 1000;
@@ -466,8 +457,10 @@ element \; when it is dynamically created;
 #X obj 240 218 t f f;
 #X msg 272 271 \; lamp_decay_rcv label \$1;
 #X msg 272 245 symbol Lamp_Decay_\$1_Sek;
-#X obj 140 50 r generalReset;
+#X obj 140 10 r generalReset;
 #X msg 140 74 1;
+#X msg 240 74 0.2;
+#X obj 240 47 delay 1000;
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
 #X connect 3 0 7 0;
@@ -476,7 +469,10 @@ element \; when it is dynamically created;
 #X connect 7 1 9 0;
 #X connect 9 0 8 0;
 #X connect 10 0 11 0;
+#X connect 10 0 13 0;
 #X connect 11 0 0 0;
+#X connect 12 0 2 0;
+#X connect 13 0 12 0;
 #X coords 0 -1 1 1 280 90 1 100 100;
 #X restore -103 205 pd controlpanel;
 #N canvas 0 23 684 467 processing_abs_alt 0;
@@ -1069,7 +1065,7 @@ DA WAR;
 #X obj 891 439 comport 8 115200;
 #X msg 971 313 pollintervall 0.01;
 #X obj 905 462 print;
-#X msg 1005 286 open 0;
+#X msg 1005 286 open 8;
 #X connect 0 0 5 0;
 #X connect 1 0 19 0;
 #X connect 2 0 5 0;
