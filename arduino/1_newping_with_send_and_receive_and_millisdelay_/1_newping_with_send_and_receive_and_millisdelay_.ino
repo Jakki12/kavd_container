@@ -17,11 +17,11 @@ int index = 0;
 
 
 //SENSOR STUFF
-#define SONAR_NUM 9      // Number of sensors.
-#define MAX_DISTANCE 60 // Maximum distance (in cm) to ping.
+#define SONAR_NUM 3      // Number of sensors.
+#define MAX_DISTANCE 500 // Maximum distance (in cm) to ping.
 #define MIN_DISTANCE 3  // Minimum distance (in cm) to constrain for
 
-
+/*
 NewPing sonar[SONAR_NUM] = {   // Sensor object array.
   NewPing(22, 24, MAX_DISTANCE), // Each sensor's trigger pin, echo pin, and max distance to ping. 
   NewPing(22, 25, MAX_DISTANCE), 
@@ -33,13 +33,16 @@ NewPing sonar[SONAR_NUM] = {   // Sensor object array.
   NewPing(22, 31, MAX_DISTANCE),
   NewPing(22, 32, MAX_DISTANCE)
 };
+*/
 
-/*
+
 NewPing sonar[SONAR_NUM] = {   // Sensor object array.
   NewPing(22, 24, MAX_DISTANCE), // Each sensor's trigger pin, echo pin, and max distance to ping. 
   NewPing(22, 25, MAX_DISTANCE), 
   NewPing(22, 26, MAX_DISTANCE)
-};*/
+};
+
+
 
 //SEND STUFF
 const int sensValuesArraySize = SONAR_NUM+2; //+2 for indicator values that indicate start of the bytestream and brett-id
@@ -48,8 +51,9 @@ byte sensValues[sensValuesArraySize];
 //RECEIVE STUFF
 const unsigned int MAX_MESSAGE_LENGTH = 20; //max allowed length of incoming dim-val data
 char terminatingChar = '\@'; //define terminating character for receive-loop
-const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-//const int pwmPins[SONAR_NUM] = {2, 3, 4};
+//const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+const int pwmPins[SONAR_NUM] = {2, 3, 4};
+
 
 
 void setup() {
@@ -85,6 +89,8 @@ void loop() {
     {
       distance = MAX_DISTANCE;
     }
+
+    //Serial.println(distance);
     
     float constrainval = constrain(distance, MIN_DISTANCE, MAX_DISTANCE);
     

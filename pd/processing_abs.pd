@@ -104,6 +104,7 @@ B: Brett-id \; L: Lamp-id \; V: DimValue \; @: terminating character
 #X text 1432 706 dimval-threshold for triggering audio;
 #X obj 1373 935 s AUDIO_INFO;
 #X text 1489 933 dimval : brett_indicator_dec;
+#X obj 1260 701 print;
 #X connect 1 0 10 0;
 #X connect 2 0 15 0;
 #X connect 3 0 2 1;
