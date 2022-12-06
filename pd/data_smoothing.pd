@@ -1,0 +1,44 @@
+#N canvas 0 23 1920 1031 12;
+#X obj 32 457 expr abs($f2-$f1);
+#X text 90 93 aufgabe neuer sensorwert: -> schiebe alten vergleichswert
+in expr/rechter eingang -> speichere dich selbst als neuen vergleichswert
+-> schiebe dich selbst in expr/linker eingang und loese dadurch rechnung
+aus.;
+#X floatatom 148 416 5 0 0 0 - - -;
+#X text 127 503 ueberpruefe distanz zwischen nachfolgenden zahlen.
+argument fuer moses ist gueltige distanz.;
+#X obj 32 18 inlet data_stream;
+#X obj 148 393 f 1;
+#X obj 166 343 loadbang;
+#X msg 166 367 1;
+#X obj 32 678 outlet valid_value;
+#X text 185 391 alter vergleichswert;
+#X obj 148 185 s \$0-get-comp-value;
+#X obj 148 314 r \$0-get-comp-value;
+#X obj 32 628 f 0;
+#X obj 90 213 s \$0-current-value;
+#X obj 234 343 r \$0-current-value;
+#X obj 32 156 t f f b, f 17;
+#X obj 50 602 r \$0-current-value;
+#X obj 32 570 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 209 599 falls gueltig \, sende aktuellen sensorwert raus;
+#X obj 32 510 moses \$1;
+#X text 323 22 diese abstraction filtert große wertespruenge eines
+daten-streams heraus. die groeße des sprunges ist im init-argument
+(\$1) der abstraction anzugeben!!;
+#X connect 0 0 19 0;
+#X connect 2 0 0 1;
+#X connect 4 0 15 0;
+#X connect 5 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 5 1;
+#X connect 11 0 5 0;
+#X connect 12 0 8 0;
+#X connect 14 0 5 1;
+#X connect 15 0 0 0;
+#X connect 15 1 13 0;
+#X connect 15 2 10 0;
+#X connect 16 0 12 1;
+#X connect 17 0 12 0;
+#X connect 19 0 17 0;
