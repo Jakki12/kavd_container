@@ -17,21 +17,15 @@ int index = 0;
 
 
 //SENSOR STUFF
-#define SONAR_NUM 9      // Number of sensors.
-#define MAX_DISTANCE 60 // Maximum distance (in cm) to ping.
+#define SONAR_NUM 3      // Number of sensors.
+#define MAX_DISTANCE 500 // Maximum distance (in cm) to ping.
 #define MIN_DISTANCE 3  // Minimum distance (in cm) to constrain for
 
 
 NewPing sonar[SONAR_NUM] = {   // Sensor object array.
   NewPing(22, 24, MAX_DISTANCE), // Each sensor's trigger pin, echo pin, and max distance to ping. 
   NewPing(22, 25, MAX_DISTANCE), 
-  NewPing(22, 26, MAX_DISTANCE),
-  NewPing(22, 27, MAX_DISTANCE),
-  NewPing(22, 28, MAX_DISTANCE),
-  NewPing(22, 29, MAX_DISTANCE),
-  NewPing(22, 30, MAX_DISTANCE),
-  NewPing(22, 31, MAX_DISTANCE),
-  NewPing(22, 32, MAX_DISTANCE)
+  NewPing(22, 26, MAX_DISTANCE)
 };
 
 /*
@@ -82,6 +76,10 @@ void loop() {
     for(int indx=0; indx<SONAR_NUM; indx++)
     {
     float distance = sonar[indx].ping_cm(); 
+    if(indx==1)
+    {
+      Serial.println(distance);
+      }
     if(distance<=0) //distance ist 0.00, wenn MAX_DISTANCE überschritten wird
     {
       distance = MAX_DISTANCE;
@@ -99,7 +97,7 @@ void loop() {
     }
     
 
-    Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
+    //Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
     
 
   }

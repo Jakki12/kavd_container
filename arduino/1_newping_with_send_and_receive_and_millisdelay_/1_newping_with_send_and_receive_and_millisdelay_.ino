@@ -18,7 +18,7 @@ int index = 0;
 
 //SENSOR STUFF
 #define SONAR_NUM 3      // Number of sensors.
-#define MAX_DISTANCE 500 // Maximum distance (in cm) to ping.
+#define MAX_DISTANCE 180 // Maximum distance (in cm) to ping.
 #define MIN_DISTANCE 3  // Minimum distance (in cm) to constrain for
 
 /*
@@ -71,8 +71,6 @@ void setup() {
     pinMode(pwmPins[p], OUTPUT);
     analogWrite(pwmPins[p], 0); //turn of all pwmPins on start up
   }
-  
-  
 }
 
 void loop() {
@@ -89,14 +87,23 @@ void loop() {
     {
       distance = MAX_DISTANCE;
     }
-
-    //Serial.println(distance);
+    
     
     float constrainval = constrain(distance, MIN_DISTANCE, MAX_DISTANCE);
     
     byte byteval = map(constrainval, MIN_DISTANCE, MAX_DISTANCE, 255, 1);   //mapping: (value, fromLow, fromHigh, toLow, toHigh)
  
     sensValues[index+2] = byteval; // save current sens-value into array; offset because of both the indicator values
+
+/*
+    if(index==1)
+    {
+      Serial.print(index);
+      Serial.print(" : ");
+      Serial.println(byteval);
+    }
+    */
+    
     Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
     
     if(index == (SONAR_NUM-1))
@@ -108,13 +115,9 @@ void loop() {
     {
       index++;//increase index for reading next sensor
     }
-//    Serial.print(i);
-//    Serial.print("=");
-//    Serial.print(byteval);
-//    Serial.print(" ");
+
   }
-  //Serial.println();
-   
+
 
     //RECEIVE
   while (Serial.available() > 0) //while loop gut????
