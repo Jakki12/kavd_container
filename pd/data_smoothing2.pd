@@ -1,0 +1,67 @@
+#N canvas 0 23 1280 751 12;
+#X obj 32 18 inlet data_stream;
+#X text 323 22 diese abstraction filtert große wertespruenge eines
+daten-streams heraus. die groeße des sprunges ist im init-argument
+(\$1) der abstraction anzugeben!!;
+#X obj 78 114 f 1;
+#X text 129 116 vergleichswert;
+#X obj 32 309 expr abs($f2-$f1);
+#X text 165 312 distanz = abs(vergleichswert - datavalue);
+#X obj 32 493 moses, f 45;
+#X obj 344 394 loadbang;
+#X obj 344 438 \$1;
+#X obj 335 374 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 377 495 rechts: distanz ist groeßer als erlaubter wertebereich.
+;
+#X obj 32 859 outlet;
+#X obj 78 138 s \$0-vergleichswert;
+#X obj 370 699 r \$0-vergleichswert;
+#X obj 344 731 f 1;
+#X obj 612 184 loadbang;
+#X obj 612 238 s \$0-init_vergleichswert;
+#X msg 612 208 1;
+#X obj 96 61 r \$0-init_vergleichswert;
+#X obj 362 677 r \$0-init_vergleichswert;
+#X obj 344 528 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 419 511 >> nicht erlaubt. gib einfach den alten gueltigen vergleichswert
+als smoothed value raus.;
+#X obj 32 42 t f f b;
+#X obj 55 181 s \$0-current_data_value;
+#X obj 32 697 f 0;
+#X obj 50 669 r \$0-current_data_value;
+#X obj 32 527 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 32 721 t f f;
+#X obj 64 757 s \$0-update-vergleichswert;
+#X obj 104 88 r \$0-update-vergleichswert;
+#X text 380 565 links: distanz liegt im erlaubten wertebereich.;
+#X obj 356 468 print data smoothing/setting wertebereich on load;
+#X text 426 589 >> erlaubt. aktueller data value wird neuer vergleichswert.
+>> aktueller data value wird rausgegeben als smoothed value;
+#X connect 0 0 22 0;
+#X connect 2 0 12 0;
+#X connect 4 0 6 0;
+#X connect 6 0 26 0;
+#X connect 6 1 20 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 1;
+#X connect 8 0 31 0;
+#X connect 9 0 8 0;
+#X connect 13 0 14 1;
+#X connect 14 0 11 0;
+#X connect 15 0 17 0;
+#X connect 17 0 16 0;
+#X connect 18 0 2 1;
+#X connect 19 0 14 1;
+#X connect 20 0 14 0;
+#X connect 22 0 4 0;
+#X connect 22 1 23 0;
+#X connect 22 2 2 0;
+#X connect 24 0 27 0;
+#X connect 25 0 24 1;
+#X connect 26 0 24 0;
+#X connect 27 0 11 0;
+#X connect 27 1 28 0;
+#X connect 29 0 2 1;
