@@ -1,4 +1,4 @@
-#N canvas 0 96 1920 984 12;
+#N canvas 427 125 1920 984 12;
 #X text 129 931 dimm wert fuer lampe (und gui);
 #X floatatom 17 623 10 0 0 0 - - -;
 #X obj 17 155 spigot 1;
@@ -90,7 +90,6 @@ B: Brett-id \; L: Lamp-id \; V: DimValue \; @: terminating character
 #X obj 1156 422 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 1237 487 print;
-#X obj 179 -64 print;
 #X obj 612 486 r \$1-\$2-dimval;
 #X text 606 939 z.B. B1L4V200@;
 #X obj 1355 667 r \$1-\$2-dimval;
@@ -105,6 +104,9 @@ B: Brett-id \; L: Lamp-id \; V: DimValue \; @: terminating character
 #X obj 1373 935 s AUDIO_INFO;
 #X text 1489 933 dimval : brett_indicator_dec;
 #X obj 1260 701 print;
+#X obj 17 -69 data_smoothing2 50;
+#X obj 179 -64 print data;
+#X obj 38 -35 print smooh out;
 #X connect 1 0 10 0;
 #X connect 2 0 15 0;
 #X connect 3 0 2 1;
@@ -139,7 +141,7 @@ B: Brett-id \; L: Lamp-id \; V: DimValue \; @: terminating character
 #X connect 39 0 36 0;
 #X connect 39 1 35 0;
 #X connect 42 0 24 0;
-#X connect 43 0 48 0;
+#X connect 43 0 94 0;
 #X connect 45 0 39 0;
 #X connect 46 0 39 0;
 #X connect 47 0 2 0;
@@ -164,11 +166,12 @@ B: Brett-id \; L: Lamp-id \; V: DimValue \; @: terminating character
 #X connect 74 0 60 0;
 #X connect 76 0 50 0;
 #X connect 78 0 63 0;
-#X connect 81 0 52 0;
-#X connect 83 0 84 0;
+#X connect 80 0 52 0;
+#X connect 82 0 83 0;
+#X connect 83 1 84 0;
+#X connect 84 0 89 0;
 #X connect 84 1 85 0;
-#X connect 85 0 90 0;
-#X connect 85 1 86 0;
-#X connect 87 0 88 0;
-#X connect 88 0 90 1;
-#X connect 90 0 92 0;
+#X connect 86 0 87 0;
+#X connect 87 0 89 1;
+#X connect 89 0 91 0;
+#X connect 94 0 48 0;
