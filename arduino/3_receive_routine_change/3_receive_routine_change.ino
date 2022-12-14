@@ -17,7 +17,7 @@ int index = 0;
 
 
 //SENSOR STUFF
-#define SONAR_NUM 2      // Number of sensors.
+#define SONAR_NUM 3      // Number of sensors.
 #define MAX_DISTANCE 180 // Maximum distance (in cm) to ping.
 #define MIN_DISTANCE 3  // Minimum distance (in cm) to constrain for
 
@@ -36,15 +36,8 @@ NewPing sonar[SONAR_NUM] = {   // Sensor object array.
 */
 
 
-//NewPing sonar[SONAR_NUM] = {   // Sensor object array.
-//  NewPing(22, 24, MAX_DISTANCE), // Each sensor's trigger pin, echo pin, and max distance to ping. 
-//  NewPing(22, 25, MAX_DISTANCE), 
-//  NewPing(22, 26, MAX_DISTANCE),
-//  NewPing(22, 27, MAX_DISTANCE)
-//};
-
-
-NewPing sonar[SONAR_NUM] = {   
+NewPing sonar[SONAR_NUM] = {   // Sensor object array.
+  NewPing(22, 24, MAX_DISTANCE), // Each sensor's trigger pin, echo pin, and max distance to ping. 
   NewPing(22, 25, MAX_DISTANCE), 
   NewPing(22, 26, MAX_DISTANCE)
 };
@@ -59,8 +52,7 @@ byte sensValues[sensValuesArraySize];
 const unsigned int MAX_MESSAGE_LENGTH = 20; //max allowed length of incoming dim-val data
 char terminatingChar = '\@'; //define terminating character for receive-loop
 //const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-//const int pwmPins[SONAR_NUM] = {2, 3, 4, 5};
-const int pwmPins[SONAR_NUM] = {3, 4};
+const int pwmPins[SONAR_NUM] = {2, 3, 4};
 
 
 
@@ -91,6 +83,11 @@ void setup() {
 void loop() {
 
   
+    for(int s=0; s<SONAR_NUM; s++)
+    {
+      sensValues[s+2] = 1;
+    }
+
   unsigned long currentMillis = millis(); // Aktuelle Zeit wird in currentMillis gespeichert
 
   if (currentMillis - previousMillis >= myDelay) // Alle 50 ms pingen
@@ -121,18 +118,18 @@ void loop() {
     }
 */
     
-
-    for(int s=0; s<SONAR_NUM; s++)
-    {
-      Serial.print("Sensor ");
-      Serial.print(s);
-      Serial.print(": ");
-      Serial.println(sensValues[s+2]);
-    }
+//
+//    for(int s=0; s<SONAR_NUM; s++)
+//    {
+//      Serial.print("Sensor ");
+//      Serial.print(s);
+//      Serial.print(": ");
+//      Serial.println(sensValues[s+2]);
+//    }
     
     
     
-    //Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
+    Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
     
     if(index == (SONAR_NUM-1))
     {
@@ -162,38 +159,38 @@ void loop() {
     
   while (Serial.available() > 0) //while loop gut????
   {
-    static char message[MAX_MESSAGE_LENGTH]; //array to store data from serial buffer
-    static unsigned int message_pos = 0; //position variable for moving through array
-
-    //read the next available byte from the serial buffer
-    char inByte = Serial.read();
-
-    //check if byte is terminating character and if incoming data was too long for our array
-    if (inByte != terminatingChar && (message_pos < MAX_MESSAGE_LENGTH - 1))
-    {
-      //still reading message, put data into array
-      message[message_pos] = inByte;
-      message_pos++;
-    }
-    else
-    {
-      //we have a terminating character, full message received
-      //Add null character to string, necessary for atoi() to work
-      message[message_pos] = '\0';
-      //Print the message
-      message_pos = 0;
-
-      
-      int brettIdReceived = getNumBetweenChars(message, sizeof(message), 'B', 'L');
-      int LampIdReceived = getNumBetweenChars(message, sizeof(message), 'L', 'V');
-      int DimValReceived = getNumBetweenChars(message, sizeof(message), 'V', '\0');
-     
-      if(BRETT_INDICATOR == brettIdReceived)
-      {
-        analogWrite(pwmPins[LampIdReceived-1], DimValReceived);
-      }
-       
-    }//else
+//    static char message[MAX_MESSAGE_LENGTH]; //array to store data from serial buffer
+//    static unsigned int message_pos = 0; //position variable for moving through array
+//
+//    //read the next available byte from the serial buffer
+      char inByte = Serial.read();
+//
+//    //check if byte is terminating character and if incoming data was too long for our array
+//    if (inByte != terminatingChar && (message_pos < MAX_MESSAGE_LENGTH - 1))
+//    {
+//      //still reading message, put data into array
+//      message[message_pos] = inByte;
+//      message_pos++;
+//    }
+//    else
+//    {
+//      //we have a terminating character, full message received
+//      //Add null character to string, necessary for atoi() to work
+//      message[message_pos] = '\0';
+//      //Print the message
+//      message_pos = 0;
+//
+//      
+//      int brettIdReceived = getNumBetweenChars(message, sizeof(message), 'B', 'L');
+//      int LampIdReceived = getNumBetweenChars(message, sizeof(message), 'L', 'V');
+//      int DimValReceived = getNumBetweenChars(message, sizeof(message), 'V', '\0');
+//     
+//      if(BRETT_INDICATOR == brettIdReceived)
+//      {
+//        analogWrite(pwmPins[LampIdReceived-1], DimValReceived);
+//      }
+//       
+//    }//else
   }//while
 
  

@@ -1,4 +1,4 @@
-#N canvas 427 125 1920 984 12;
+#N canvas 112 168 1920 984 12;
 #X text 129 931 dimm wert fuer lampe (und gui);
 #X floatatom 17 623 10 0 0 0 - - -;
 #X obj 17 155 spigot 1;

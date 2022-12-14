@@ -45,8 +45,8 @@ NewPing sonar[SONAR_NUM] = {   // Sensor object array.
 
 
 NewPing sonar[SONAR_NUM] = {   
-  NewPing(22, 25, MAX_DISTANCE), 
-  NewPing(22, 26, MAX_DISTANCE)
+  NewPing(22, 25, MAX_DISTANCE),
+  NewPing(40, 36, MAX_DISTANCE)
 };
 
 
@@ -121,18 +121,18 @@ void loop() {
     }
 */
     
-
-    for(int s=0; s<SONAR_NUM; s++)
-    {
-      Serial.print("Sensor ");
-      Serial.print(s);
-      Serial.print(": ");
-      Serial.println(sensValues[s+2]);
-    }
+//
+//    for(int s=0; s<SONAR_NUM; s++)
+//    {
+//      Serial.print("Sensor ");
+//      Serial.print(s);
+//      Serial.print(": ");
+//      Serial.println(sensValues[s+2]);
+//    }
     
     
     
-    //Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
+    Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
     
     if(index == (SONAR_NUM-1))
     {
