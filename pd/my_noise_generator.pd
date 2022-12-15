@@ -2,13 +2,13 @@
 #X obj 362 169 noise~;
 #X obj 365 346 *~;
 #X obj 108 133 hsl 67 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 1980 1;
+-1 -1 0 1;
 #X floatatom 105 153 5 0 0 0 - - -;
 #X obj 105 227 s \$0-volume;
 #X obj 383 319 r \$0-volume;
 #X text 111 115 vol;
 #X obj 193 134 hsl 67 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 660 1;
+-1 -1 0 1;
 #X floatatom 190 154 5 0 0 0 - - -;
 #X text 190 116 bandpass f;
 #X obj 190 266 s \$0-bandpassfreq;
@@ -28,9 +28,13 @@
 #X obj 365 473 outlet~ left;
 #X obj 483 474 outlet~ right;
 #X text 446 16 has to be 0-1;
+#X obj 366 413 *~;
+#X obj 482 413 *~;
+#X msg 489 359 0.4;
+#X obj 490 323 loadbang;
 #X connect 0 0 17 0;
-#X connect 1 0 24 0;
-#X connect 1 0 23 0;
+#X connect 1 0 26 0;
+#X connect 1 0 27 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 5 0 1 1;
@@ -48,4 +52,9 @@
 #X connect 19 0 2 0;
 #X connect 20 0 21 0;
 #X connect 22 0 14 0;
+#X connect 26 0 23 0;
+#X connect 27 0 24 0;
+#X connect 28 0 27 1;
+#X connect 28 0 26 1;
+#X connect 29 0 28 0;
 #X coords 0 -1 1 1 170 100 1 100 100;

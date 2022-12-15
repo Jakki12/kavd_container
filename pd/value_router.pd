@@ -1,0 +1,16 @@
+#N canvas 0 96 1920 984 10;
+#X text 258 70 route incoming value to first or second outlet according
+to 1 or 0 on second inlet;
+#X obj 59 160 inlet valueToRoute;
+#X obj 177 160 inlet decidingFlag;
+#X obj 59 365 outlet FlagWas1;
+#X obj 162 366 outlet FlagWas0;
+#X obj 59 252 pack f f;
+#X msg 59 271 \$2 \$1;
+#X obj 59 291 route 1 0;
+#X connect 1 0 5 0;
+#X connect 2 0 5 1;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 3 0;
+#X connect 7 1 4 0;
