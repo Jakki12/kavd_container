@@ -56,12 +56,16 @@ const int sensValuesArraySize = SONAR_NUM+2; //+2 for indicator values that indi
 byte sensValues[sensValuesArraySize];
 
 //RECEIVE STUFF
-const unsigned int MAX_MESSAGE_LENGTH = 20; //max allowed length of incoming dim-val data
+const unsigned int MAX_MESSAGE_LENGTH = 10; //max allowed length of incoming dim-val data
 char terminatingChar = '\@'; //define terminating character for receive-loop
 //const int pwmPins[SONAR_NUM] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 //const int pwmPins[SONAR_NUM] = {2, 3, 4, 5};
 const int pwmPins[SONAR_NUM] = {3, 4};
 
+const byte numChars = 15;
+char receivedChars[numChars];
+
+boolean newData = false;
 
 
 
@@ -84,9 +88,10 @@ void setup() {
   for (int p = 0; p < SONAR_NUM; p++)
   {
     pinMode(pwmPins[p], OUTPUT);
-    analogWrite(pwmPins[p], 0); //turn of all pwmPins on start up
+    analogWrite(pwmPins[p], 0); //turn off all pwmPins on start up
   }
 }
+
 
 void loop() {
 
@@ -98,117 +103,83 @@ void loop() {
 
     for(int s=0; s<SONAR_NUM; s++)
     {
-      sensValues[s+2]=1;
+      sensValues[s+SONAR_NUM]=1;
+      
+      float distance = sonar[s].ping_cm();
+      
+      if(distance<=0) //distance ist 0.00, wenn MAX_DISTANCE überschritten wird
+      {
+        distance = MAX_DISTANCE;
+      }
+      
+      float constrainval = constrain(distance, MIN_DISTANCE, MAX_DISTANCE);
+      
+      byte byteval = map(constrainval, MIN_DISTANCE, MAX_DISTANCE, 255, 1);   //mapping: (value, fromLow, fromHigh, toLow, toHigh)
+      
+      sensValues[s+SONAR_NUM] = byteval; // save current sens-value into array; offset because of both the indicator values        
     }
 
-    
-    previousMillis = currentMillis; // Zeitpunkt der letzten Schaltung wird festgehalten
-     
-    float distance = sonar[index].ping_cm();
-    
-    if(distance<=0) //distance ist 0.00, wenn MAX_DISTANCE überschritten wird
-    {
-      distance = MAX_DISTANCE;
-    }
-    
-    
-    float constrainval = constrain(distance, MIN_DISTANCE, MAX_DISTANCE);
-    
-    byte byteval = map(constrainval, MIN_DISTANCE, MAX_DISTANCE, 255, 1);   //mapping: (value, fromLow, fromHigh, toLow, toHigh)
- 
-    sensValues[index+2] = byteval; // save current sens-value into array; offset because of both the indicator values
-
-
-/*
-    if(index==1)
-    {
-      Serial.print(index);
-      Serial.print(" : ");
-      Serial.println(byteval);
-    }
-*/
-    
-//
-//    for(int s=0; s<SONAR_NUM; s++)
-//    {
-//      Serial.print("Sensor ");
-//      Serial.print(s);
-//      Serial.print(": ");
-//      Serial.println(sensValues[s+2]);
-//    }
-    
-    
-    
     Serial.write(sensValues, sizeof(sensValues)); //send away current sensor values to PD
-    
-    if(index == (SONAR_NUM-1))
-    {
-      index = 0;//reset index for next round
-    }
-    else
-    {
-      index++;//increase index for reading next sensor
-    }
+
+    previousMillis = currentMillis; // Zeitpunkt der letzten Schaltung wird festgehalten
+
 
   }
 
-
     //RECEIVE
+    recvWithStartEndMarkers();
+    showNewData();
 
 
+    int lampIdRecv = getNumBetweenChars(receivedChars, sizeof(receivedChars), 'L', 'V');
+    int dimValRecv = getNumBetweenChars(receivedChars, sizeof(receivedChars), 'V', '\0');
+        analogWrite(pwmPins[lampIdRecv-1], dimValRecv);
 
-  int timeOut = 0;
-  int timeElapsed = 0;
-  unsigned long lastTime = 0;
 
-  digitalWrite(48,LOW);
-  
-  while(Serial.available() > 0 && timeOut!=1) //while loop gut????
-  {
-    unsigned long timeNow = millis();
-    timeElapsed = timeNow - lastTime;
-    lastTime = timeNow;
-    
-    
-    if (timeElapsed > 30)
-    {
-      digitalWrite(48, HIGH);
-      timeOut = 1;
-    }
-    else
-    {
-      static char message[MAX_MESSAGE_LENGTH]; //array to store data from serial buffer
-      static unsigned int message_pos = 0; //position variable for moving through array
-  
-      //read the next available byte from the serial buffer
-      char inByte = Serial.read();
-  
-      //check if byte is terminating character and if incoming data was too long for our array
-      if (inByte != terminatingChar && (message_pos < MAX_MESSAGE_LENGTH - 1))
-      {
-        //still reading message, put data into array
-        message[message_pos] = inByte;
-        message_pos++;
-      }
-      else
-      {
-        //we have a terminating character, full message received
-        //Add null character to string, necessary for atoi() to work
-        message[message_pos] = '\0';
-        //Print the message
-        message_pos = 0;
-  
-        
-        int brettIdReceived = getNumBetweenChars(message, sizeof(message), 'B', 'L');
-        int LampIdReceived = getNumBetweenChars(message, sizeof(message), 'L', 'V');
-        int DimValReceived = getNumBetweenChars(message, sizeof(message), 'V', '\0');
-       
-        if(BRETT_INDICATOR == brettIdReceived)
-        {
-          analogWrite(pwmPins[LampIdReceived-1], DimValReceived);
-        }
-         
-      }//else
-    }//else
-  }//while
 }//loop
+
+
+
+void recvWithStartEndMarkers() {
+    static boolean recvInProgress = false;
+    static byte ndx = 0;
+    char startMarker = 'B';
+    char endMarker = '@';
+    char rc;
+ 
+    while (Serial.available() > 0 && newData == false) {
+        rc = Serial.read();
+
+        if (recvInProgress == true) {
+            if (rc != endMarker) {
+                receivedChars[ndx] = rc;
+                ndx++;
+                if (ndx >= numChars) {
+                    ndx = numChars - 1;
+                }
+            }
+            else {
+                receivedChars[ndx] = '\0'; // terminate the string
+                recvInProgress = false;
+                ndx = 0;
+                newData = true;
+            }
+        }
+
+        else if (rc == startMarker) {
+            recvInProgress = true;
+        }
+    }
+}
+
+void showNewData() {
+    if (newData == true) {
+//        Serial.print("This just in ... ");
+//        Serial.println(receivedChars);
+//        Serial.print("Lamp id: ");
+//        Serial.println(getNumBetweenChars(receivedChars, sizeof(receivedChars), 'L', 'V'));
+//        Serial.print("dim val: ");
+//        Serial.println(getNumBetweenChars(receivedChars, sizeof(receivedChars), 'V', '\0'));
+        newData = false;
+    }
+}

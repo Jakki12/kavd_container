@@ -7,7 +7,7 @@
 #X obj 90 334 array get \$0-pentatonicScale;
 #X floatatom 90 357 5 0 0 0 - - -;
 #X msg 66 281 0;
-#X obj 90 443 outlet midiNoteToPlay;
+#X obj 90 483 outlet midiNoteToPlay;
 #X obj 68 45 inlet sensorVal;
 #X text 173 49 0..255;
 #X obj 299 19 t b b;
@@ -24,8 +24,8 @@
 #X msg 213 284 3;
 #X msg 264 284 4;
 #X obj 188 98 change;
-#X obj 90 409 change;
-#X obj 90 379 + 24;
+#X obj 90 449 change;
+#X obj 90 399 + \$1;
 #X connect 1 0 3 0;
 #X connect 2 0 11 0;
 #X connect 5 0 6 0;
