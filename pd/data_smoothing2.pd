@@ -1,0 +1,95 @@
+#N canvas 13 365 1280 751 12;
+#X obj 32 -172 inlet data_stream;
+#X text 323 -38 diese abstraction filtert große wertespruenge eines
+daten-streams heraus. die groeße des sprunges ist im init-argument
+(\$1) der abstraction anzugeben!!;
+#X obj 78 114 f 1;
+#X text 129 116 vergleichswert;
+#X text 381 305 distanz = abs(vergleichswert - datavalue);
+#X obj 32 939 outlet;
+#X obj 78 191 s \$0-vergleichswert;
+#X obj 370 779 r \$0-vergleichswert;
+#X obj 344 811 f 1;
+#X obj 612 184 loadbang;
+#X obj 612 238 s \$0-init_vergleichswert;
+#X msg 612 208 1;
+#X obj 96 1 r \$0-init_vergleichswert;
+#X obj 362 757 r \$0-init_vergleichswert;
+#X obj 344 608 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 400 565 >> nicht erlaubt. gib einfach den alten gueltigen vergleichswert
+als smoothed value raus.;
+#X obj 32 -18 t f f b;
+#X obj 55 231 s \$0-current_data_value;
+#X obj 32 777 f 0;
+#X obj 50 749 r \$0-current_data_value;
+#X obj 32 607 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 32 801 t f f;
+#X obj 64 837 s \$0-update-vergleichswert;
+#X obj 104 28 r \$0-update-vergleichswert;
+#X text 110 429 links: distanz liegt im erlaubten wertebereich.;
+#X text 156 453 >> erlaubt. aktueller data value wird neuer vergleichswert.
+>> aktueller data value wird rausgegeben als smoothed value;
+#X obj 195 282 r \$0-vergleichswert;
+#X obj 32 -97 t f f;
+#X obj 70 -62 print datasmoothing input;
+#X obj 32 627 t b b;
+#X obj 344 628 t b b;
+#X obj 64 671 print data smoothing gueltige distanz;
+#X obj 385 714 print data smoothing ungueltige distanz;
+#X obj 358 283 r \$0-current_data_value;
+#X obj 62 377 print expr;
+#X obj 32 309 expr (abs($f2-$f1)<=150) && ($f3>1) && ($f1>20);
+#X obj 32 435 route 1;
+#X text 396 500 rechts: kriterien fuer gueltigen Wert nicht erfuellt.
+1)distanz ist groeßer als erlaubter wertebereich. 2)data value ist
+nicht groeßer als 1;
+#X obj 78 139 t f f;
+#X obj 108 164 print data smoothing setting vergleichswert;
+#X obj 104 53 t f f;
+#X obj 136 84 print data smoothing updating vergleichswert;
+#X text 709 305 && datavalue>1 &&;
+#X obj 726 335 r \$0-vergleichswert;
+#X floatatom 498 191 5 0 0 0 - - -;
+#X floatatom 498 246 5 0 0 0 - - -;
+#X obj 498 218 expr $f1 || 0;
+#X obj 358 367 expr ((abs($f2-$f1)<=150) && ($f1>1)) || (($f1==1) &&
+($f2<100));
+#X connect 0 0 27 0;
+#X connect 2 0 38 0;
+#X connect 7 0 8 1;
+#X connect 8 0 5 0;
+#X connect 9 0 11 0;
+#X connect 11 0 10 0;
+#X connect 12 0 2 1;
+#X connect 13 0 8 1;
+#X connect 14 0 30 0;
+#X connect 16 0 47 0;
+#X connect 16 1 17 0;
+#X connect 16 2 2 0;
+#X connect 18 0 21 0;
+#X connect 19 0 18 1;
+#X connect 20 0 29 0;
+#X connect 21 0 5 0;
+#X connect 21 1 22 0;
+#X connect 23 0 40 0;
+#X connect 26 0 35 1;
+#X connect 27 0 16 0;
+#X connect 27 1 28 0;
+#X connect 29 0 18 0;
+#X connect 29 1 31 0;
+#X connect 30 0 8 0;
+#X connect 30 1 32 0;
+#X connect 33 0 35 2;
+#X connect 35 0 36 0;
+#X connect 36 0 20 0;
+#X connect 36 1 14 0;
+#X connect 38 0 6 0;
+#X connect 38 1 39 0;
+#X connect 40 0 2 1;
+#X connect 40 1 41 0;
+#X connect 43 0 47 1;
+#X connect 44 0 46 0;
+#X connect 46 0 45 0;
+#X connect 47 0 36 0;

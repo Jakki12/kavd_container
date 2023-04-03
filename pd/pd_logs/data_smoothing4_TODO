@@ -1,0 +1,41 @@
+ew list: 1 169 156 109
+new difflist: 3 2 1 2
+getting diff value: 3
+manipulation threshold exceeded: 3
+saving sensor val at minimum index: 109
+loop index for manipulating: 0
+expr: 1
+loop index for manipulating: 1
+expr: 0
+loop index for manipulating: 2
+expr: 0
+loop index for manipulating: 3
+expr: 0
+getting diff value: 2
+manipulation threshold exceeded: 2
+saving sensor val at minimum index: 109
+loop index for manipulating: 0
+expr: 0
+loop index for manipulating: 1
+expr: 1
+loop index for manipulating: 2
+expr: 0
+loop index for manipulating: 3
+expr: 0
+getting diff value: 1
+getting diff value: 2
+manipulation threshold exceeded: 2
+saving sensor val at minimum index: 109
+loop index for manipulating: 0
+expr: 0
+loop index for manipulating: 1
+expr: 0
+loop index for manipulating: 2
+expr: 0
+loop index for manipulating: 3
+expr: 1
+greaterthanthresholdcounter: 3
+smallerthanthresholdcounter: 1
+difflist exceeds threshold more than once: bang
+1 oder mehr diff vals sind ungueltig: bang
+*TODO* more than one but not all diff vals are not ok: bang

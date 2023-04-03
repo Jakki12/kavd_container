@@ -1,0 +1,71 @@
+#N canvas -9 96 1920 984 10;
+#X obj 82 213 s \$0-sensVal0;
+#X obj 518 192 s \$0-sensVal1;
+#X obj 298 241 r \$0-sensVal0;
+#X obj 366 267 r \$0-sensVal1;
+#X obj 48 325 value_router, f 31;
+#X obj 626 236 r \$0-sensVal0;
+#X obj 700 262 r \$0-sensVal1;
+#X obj 48 21 inlet sensorVal0;
+#X obj 484 24 inlet sensorVal1;
+#X obj 484 327 value_router;
+#X obj 48 454 outlet sensVal0HarmonicMode;
+#X obj 230 454 outlet sensVal0ChaosMode;
+#X obj 484 453 outlet sensVal1HarmonicMode;
+#X obj 663 453 outlet sensVal1ChaosMode;
+#X obj 203 117 bng 30 250 50 0 empty sens0_0_rcv empty 17 7 0 10 -262144
+-1 -1;
+#X obj 238 117 bng 30 250 50 0 empty sens0_1_rcv empty 17 7 0 10 -258699
+-1 -1;
+#X text 202 100 harmo;
+#X text 235 100 chaos;
+#X text 208 75 sensor 0;
+#X msg 57 352 \; sens0_0_rcv color 16;
+#X obj 281 116 bng 30 250 50 0 empty sens1_0_rcv empty 17 7 0 10 -262144
+-1 -1;
+#X obj 316 116 bng 30 250 50 0 empty sens1_1_rcv empty 17 7 0 10 -258699
+-1 -1;
+#X text 280 99 harmo;
+#X text 313 99 chaos;
+#X text 286 74 sensor 1;
+#X msg 502 358 \; sens1_0_rcv color 16;
+#X msg 664 358 \; sens1_1_rcv color 13;
+#X obj 48 113 t f b f b;
+#X text 622 42 here we check activity on the different sensors. \;
+Inlet: current smoothed sensor value. Each sensor has two outlets.
+If all sensors are active (smoothed value >0) then \, we put the sensor
+values out on its left mode \, meaning we are in harmonic mode. With
+this we are able to route the sensor Value into a harmonic instrument.
+If not all sensors are active \, then we output the sens values on
+the right output \, to route it into chaos instruments;
+#X msg 245 348 \; sens0_1_rcv color 13;
+#X msg 99 164 \; sens0_0_rcv color 0 \; sens0_1_rcv color 0 \;;
+#X obj 484 112 t f b f b;
+#X msg 534 139 \; sens1_0_rcv color 0 \; sens1_1_rcv color 0 \;;
+#X obj 231 298 expr ($f2>10) && ($f3>10);
+#X obj 553 293 expr ($f2>10) && ($f3>10);
+#X connect 2 0 33 1;
+#X connect 3 0 33 2;
+#X connect 4 0 10 0;
+#X connect 4 0 19 0;
+#X connect 4 1 11 0;
+#X connect 4 1 29 0;
+#X connect 5 0 34 1;
+#X connect 6 0 34 2;
+#X connect 7 0 27 0;
+#X connect 8 0 31 0;
+#X connect 9 0 12 0;
+#X connect 9 0 25 0;
+#X connect 9 1 13 0;
+#X connect 9 1 26 0;
+#X connect 27 0 4 0;
+#X connect 27 1 33 0;
+#X connect 27 2 0 0;
+#X connect 27 3 30 0;
+#X connect 31 0 9 0;
+#X connect 31 1 34 0;
+#X connect 31 2 1 0;
+#X connect 31 3 32 0;
+#X connect 33 0 4 1;
+#X connect 34 0 9 1;
+#X coords 0 -1 1 1 150 110 1 200 50;

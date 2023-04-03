@@ -1,0 +1,41 @@
+#N canvas 101 68 605 680 12;
+#X obj 47 262 cnv 15 100 60 symsen1 symrcv1 empty 20 12 0 14 -233017
+-66577 0;
+#X obj 45 162 print;
+#X obj 156 182 print;
+#X obj 156 128 r symsen2;
+#X obj 45 128 r symsen1;
+#X obj 277 182 print;
+#X obj 358 182 print;
+#X obj 277 128 r symsen3;
+#X obj 358 128 r symsen4;
+#X obj 161 263 cnv 15 100 60 symsen2 symrcv2 empty 20 12 0 14 -233017
+-66577 0;
+#X obj 280 263 cnv 15 100 60 symsen3 symrcv3 empty 20 12 0 14 -233017
+-66577 0;
+#X obj 400 263 cnv 15 100 60 symsen4 symrcv4 empty 20 12 0 14 -233017
+-66577 0;
+#X msg 165 86 \; symrcv2 get_pos;
+#X msg 45 86 \; symrcv1 get_pos;
+#X msg 285 86 \; symrcv3 get_pos;
+#X msg 405 86 \; symrcv4 get_pos;
+#X obj 45 26 metro 500;
+#X obj 45 51 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 45 1 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 53 199 cursor;
+#X floatatom 55 229 5 0 0 0 - - -;
+#X obj 104 405 receivecanvas 0;
+#X obj 104 479 print receivecanvas;
+#X msg 560 172 breite 100;
+#X obj 104 429 print;
+#X connect 3 0 2 0;
+#X connect 16 0 17 0;
+#X connect 17 0 13 0;
+#X connect 17 0 12 0;
+#X connect 17 0 14 0;
+#X connect 17 0 15 0;
+#X connect 18 0 16 0;
+#X connect 19 0 20 0;
+#X connect 21 0 24 0;

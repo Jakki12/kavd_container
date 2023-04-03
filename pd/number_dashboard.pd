@@ -1,0 +1,67 @@
+#N canvas 179 29 723 580 12;
+#X text 514 -290 2.3.22 this abstraction saves a number which can be
+increased and de- creased on the first and second outlet. The creation
+argument sets initial value. The third inlet changes the current stored
+number. The current number is shown on the graph-on-parent-canvas;
+#X text 150 -202 increase;
+#X text 270 -204 decrease;
+#X obj 116 -290 inlet increase;
+#X obj 236 -287 inlet decrease;
+#X msg 116 -202 incr;
+#X msg 236 -204 decr;
+#X obj 361 -164 loadbang;
+#X obj 116 -145 s \$0-calc_id;
+#X obj 359 -22 r \$0-calc_id;
+#X obj 359 13 route incr decr, f 47;
+#X obj 359 95 f 0;
+#X obj 359 128 + 1;
+#X obj 359 243 s \$0-new_number;
+#X obj 391 218 s \$0-old_number;
+#X obj 359 187 t f f;
+#X obj 377 48 r \$0-old_number;
+#X obj 522 104 f 0;
+#X obj 540 77 r \$0-old_number;
+#X obj 522 137 - 1;
+#X obj 99 -72 r \$0-new_number;
+#X obj 99 -48 t b f;
+#X obj 99 -8 f 0;
+#X obj 361 -139 f \$1;
+#X obj 361 -74 s \$0-new_number;
+#X obj 372 -101 s \$0-old_number;
+#X obj 100 100 cnv 15 84 60 empty \$0-number_dash_rcv 15 20 30 0 14
+-257985 -66577 0;
+#X obj 99 28 makefilename %d;
+#X obj 353 311 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 353 339 \$0;
+#X obj 353 365 makefilename %d-number_dash_rcv;
+#X obj 115 216 pack s;
+#X obj 300 398 pack s s;
+#X msg 300 454 \; \$2 label \$1;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 8 0;
+#X connect 6 0 8 0;
+#X connect 7 0 23 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 17 0;
+#X connect 11 0 12 0;
+#X connect 12 0 15 0;
+#X connect 15 0 13 0;
+#X connect 15 1 14 0;
+#X connect 16 0 11 1;
+#X connect 17 0 19 0;
+#X connect 18 0 17 1;
+#X connect 19 0 15 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 22 1;
+#X connect 22 0 27 0;
+#X connect 23 0 25 0;
+#X connect 23 0 24 0;
+#X connect 27 0 32 0;
+#X connect 28 0 29 0;
+#X connect 29 0 30 0;
+#X connect 30 0 32 1;
+#X coords 0 -1 1 1 85 60 2 100 100;

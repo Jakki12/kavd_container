@@ -1,0 +1,17 @@
+#N canvas 737 103 450 300 12;
+#X obj 84 38 inlet bang;
+#X obj 83 128 t f f;
+#X obj 120 103 + 1;
+#X obj 81 194 moses \$1;
+#X obj 79 254 outlet;
+#X msg 104 78 1;
+#X obj 83 104 f 1;
+#X connect 0 0 6 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 0;
+#X connect 2 0 6 1;
+#X connect 3 0 4 0;
+#X connect 3 1 4 0;
+#X connect 3 1 5 0;
+#X connect 5 0 6 1;
+#X connect 6 0 1 0;

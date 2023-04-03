@@ -1,0 +1,42 @@
+#N canvas 552 349 450 598 10;
+#X obj 75 54 inlet sensVal;
+#X obj 191 84 loadbang;
+#X msg 191 137 1;
+#X obj 174 177 f 0;
+#X text 189 217 wenn neuer wert ist kleiner als alter wert : mache
+einen instrument bang (-> == gebe sensor wert raus ). else: mache nix
+;
+#X obj 63 323 f 0;
+#X obj 74 247 route 1;
+#X obj 63 287 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 155 530 outlet;
+#X obj 125 292 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 209 404 print;
+#X obj 74 214 expr $f1 < ($f2);
+#X obj 63 369 expr $f1 <= 1;
+#X obj 63 392 route 1;
+#X obj 75 77 t f f b f f;
+#X obj 177 111;
+#X obj 66 452 f 0;
+#X obj 63 415 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X connect 0 0 14 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 1;
+#X connect 3 0 11 1;
+#X connect 5 0 12 0;
+#X connect 6 0 7 0;
+#X connect 6 1 9 0;
+#X connect 7 0 5 0;
+#X connect 11 0 6 0;
+#X connect 12 0 13 0;
+#X connect 13 0 17 0;
+#X connect 14 0 3 1;
+#X connect 14 1 11 0;
+#X connect 14 2 3 0;
+#X connect 14 3 5 1;
+#X connect 14 4 16 1;
+#X connect 16 0 8 0;
+#X connect 17 0 16 0;

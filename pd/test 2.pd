@@ -1,0 +1,11 @@
+#N canvas 0 23 1280 671 12;
+#X obj 288 103 variable_bip_synth;
+#X obj 283 374 dac~ 1 2;
+#X obj 359 34 hsl 128 15 60 200 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 6600 1;
+#X floatatom 356 54 5 0 0 0 - - -;
+#X connect 0 0 1 0;
+#X connect 0 1 1 1;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X coords 0 671 1 670 200 200 0;

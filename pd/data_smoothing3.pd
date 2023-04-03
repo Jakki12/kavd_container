@@ -1,0 +1,167 @@
+#N canvas 471 125 1280 751 12;
+#X obj 32 -812 inlet data_stream;
+#X text 317 -28 diese abstraction filtert große wertespruenge eines
+daten-streams heraus. die groeße des sprunges ist im init-argument
+(\$1) der abstraction anzugeben!!;
+#X obj 78 114 f 1;
+#X text 129 116 vergleichswert;
+#X text 317 316 distanz = abs(vergleichswert - datavalue);
+#X obj 32 1169 outlet;
+#X obj 78 198 s \$0-vergleichswert;
+#X obj 410 1009 r \$0-vergleichswert;
+#X obj 384 1041 f 1;
+#X obj 612 134 loadbang;
+#X obj 612 238 s \$0-init_vergleichswert;
+#X msg 612 208 1;
+#X obj 96 1 r \$0-init_vergleichswert;
+#X obj 402 987 r \$0-init_vergleichswert;
+#X obj 384 838 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 478 625 >> nicht erlaubt. gib einfach den alten gueltigen vergleichswert
+als smoothed value raus.;
+#X obj 32 -18 t f f b;
+#X obj 55 231 s \$0-current_data_value;
+#X obj 32 1007 f 0;
+#X obj 50 979 r \$0-current_data_value;
+#X obj 32 837 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 32 1031 t f f;
+#X obj 64 1067 s \$0-update-vergleichswert;
+#X obj 104 28 r \$0-update-vergleichswert;
+#X text 110 429 links: distanz liegt im erlaubten wertebereich.;
+#X text 156 453 >> erlaubt. aktueller data value wird neuer vergleichswert.
+>> aktueller data value wird rausgegeben als smoothed value;
+#X obj 32 -97 t f f;
+#X obj 64 -52 print datasmoothing input;
+#X obj 32 857 t b b;
+#X obj 384 858 t b b;
+#X obj 64 901 print data smoothing gueltige distanz;
+#X obj 507 704 print data smoothing ungueltige distanz;
+#X obj 62 377 print expr;
+#X obj 32 435 route 1;
+#X text 396 500 rechts: kriterien fuer gueltigen Wert nicht erfuellt.
+1)distanz ist groeßer als erlaubter wertebereich. 2)data value ist
+nicht groeßer als 1;
+#X obj 78 139 t f f;
+#X obj 110 171 print data smoothing setting vergleichswert;
+#X obj 104 53 t f f;
+#X obj 136 84 print data smoothing updating vergleichswert;
+#X text 645 316 && datavalue>1 &&;
+#X obj 285 287 r \$0-vergleichswert;
+#X text 340 347 Großer Sprung nach unten ungueltig;
+#X obj 144 -747 == 1;
+#X msg 833 210 1;
+#X obj 833 235 s \$0-init_1_counter;
+#X obj 612 159 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 111 -447 r \$0-init_1_counter;
+#X obj 93 -409 f 1;
+#X obj 144 -722 route 1, f 24;
+#X obj 144 -697 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 93 -384 t f f;
+#X msg 144 -664 1;
+#X text 175 -667 data was 1;
+#X obj 92 -614 f 0;
+#X msg 309 -666 0;
+#X obj 309 -693 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 32 -787 t f b f;
+#X text 203 -743 check if data is 1;
+#X text 139 -609 if 1 \, increment 1 counter;
+#X obj 92 -589 route 1;
+#X obj 139 -542 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 166 -582 if not 1 \, reset 1 counter;
+#X msg 139 -519 1;
+#X text 152 -346 wenn 30 1 hinternander kommen \, wird wohl keiner
+mehr vorm sensor \, stehen \, dann soll die lampe ausgehen;
+#X obj 93 -183 s \$0-init_vergleichswert;
+#X msg 93 -258 1;
+#X obj 93 -320 route 1;
+#X obj 93 -295 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 138 -256 print RESETTING*******************;
+#X obj 168 -370 print counter;
+#X obj 92 -564 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 130 -410 + 1;
+#X obj 276 -182 s \$0-init_1_counter;
+#X obj 93 -346 > 5;
+#X obj 433 -182 s \$0-humanAwayFlag;
+#X msg 433 -216 1;
+#X obj 32 312 expr ((abs($f2-$f1)<=150) && ($f1>1));
+#X obj 342 762 expr $f2 == 1;
+#X text 440 562 wenn aber niemand mehr vor dem sensor steht \, dann
+ist wertesprung erlaubt;
+#X obj 430 732 r \$0-humanAwayFlag;
+#X obj 342 787 route 1;
+#X obj 342 815 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 346 -632 s \$0-humanAwayFlag;
+#X msg 346 -666 0;
+#X connect 0 0 56 0;
+#X connect 2 0 35 0;
+#X connect 7 0 8 1;
+#X connect 8 0 5 0;
+#X connect 9 0 45 0;
+#X connect 11 0 10 0;
+#X connect 12 0 2 1;
+#X connect 13 0 8 1;
+#X connect 14 0 29 0;
+#X connect 16 0 76 0;
+#X connect 16 1 17 0;
+#X connect 16 2 2 0;
+#X connect 18 0 21 0;
+#X connect 19 0 18 1;
+#X connect 20 0 28 0;
+#X connect 21 0 5 0;
+#X connect 21 1 22 0;
+#X connect 23 0 37 0;
+#X connect 26 0 16 0;
+#X connect 28 0 18 0;
+#X connect 29 0 8 0;
+#X connect 33 0 20 0;
+#X connect 33 1 77 0;
+#X connect 35 0 6 0;
+#X connect 37 0 2 1;
+#X connect 40 0 76 1;
+#X connect 42 0 48 0;
+#X connect 43 0 44 0;
+#X connect 45 0 43 0;
+#X connect 45 0 11 0;
+#X connect 46 0 47 1;
+#X connect 47 0 50 0;
+#X connect 48 0 49 0;
+#X connect 48 1 55 0;
+#X connect 49 0 51 0;
+#X connect 50 0 73 0;
+#X connect 50 1 71 0;
+#X connect 51 0 53 1;
+#X connect 53 0 59 0;
+#X connect 54 0 53 1;
+#X connect 55 0 54 0;
+#X connect 55 0 83 0;
+#X connect 56 0 26 0;
+#X connect 56 1 53 0;
+#X connect 56 2 42 0;
+#X connect 59 0 70 0;
+#X connect 59 1 60 0;
+#X connect 60 0 62 0;
+#X connect 62 0 47 0;
+#X connect 65 0 64 0;
+#X connect 65 0 72 0;
+#X connect 65 0 75 0;
+#X connect 66 0 67 0;
+#X connect 67 0 65 0;
+#X connect 70 0 47 0;
+#X connect 71 0 47 1;
+#X connect 73 0 66 0;
+#X connect 75 0 74 0;
+#X connect 76 0 33 0;
+#X connect 77 0 80 0;
+#X connect 79 0 77 1;
+#X connect 80 0 81 0;
+#X connect 80 1 14 0;
+#X connect 81 0 18 0;
+#X connect 83 0 82 0;

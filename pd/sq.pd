@@ -1,0 +1,18 @@
+#N canvas 1000 29 915 1023 12;
+#X obj 57 117 inlet;
+#X obj 57 158 phasor~;
+#X obj 57 186 expr~ $v1 > $v2;
+#X obj 159 157 / 100;
+#X obj 103 117 inlet;
+#X obj 159 129 inlet;
+#X obj 57 214 outlet~;
+#X text 61 88 freq;
+#X text 105 88 phase;
+#X text 160 102 duty;
+#X text 42 48 sq.pd - simple square generator;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 6 0;
+#X connect 3 0 2 1;
+#X connect 4 0 1 1;
+#X connect 5 0 3 0;
