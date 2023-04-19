@@ -18,7 +18,7 @@ int index = 0;
 
 //SENSOR STUFF
 #define SONAR_NUM 6      // Number of sensors.
-#define MAX_DISTANCE 100 // Maximum distance (in cm) to ping.
+#define MAX_DISTANCE 500 // Maximum distance (in cm) to ping.
 #define MIN_DISTANCE 3  // Minimum distance (in cm) to constrain for
 
 /*

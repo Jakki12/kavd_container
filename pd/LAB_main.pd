@@ -61,7 +61,7 @@
 -1;
 #X obj 17 78 s start;
 #X obj 351 68 s start_gui_generation;
-#N canvas -107 422 1920 984 processingsubpatch 0;
+#N canvas -71 319 1920 984 processingsubpatch 0;
 #X obj 200 30 processing_abs 0_0 0_0 0 0;
 #X obj 400 30 processing_abs 0_0 0_1 1 0;
 #X obj 600 30 processing_abs 0_0 0_2 2 0;
@@ -91,7 +91,7 @@
 #X connect 6 0 7 1;
 #X connect 7 0 1 0;
 #X coords 0 -1 1 1 320 60 1 100 100;
-#X restore -112 131 pd sensor_simulator;
+#X restore -93 129 pd sensor_simulator;
 #N canvas 0 101 1280 652 processing_patch_generation 0;
 #X obj 78 15 until;
 #X obj 78 -10 f 0;
@@ -412,7 +412,7 @@
 #X connect 12 0 2 0;
 #X connect 13 0 12 0;
 #X coords 0 -1 1 1 280 90 1 100 100;
-#X restore -103 205 pd controlpanel;
+#X restore -84 203 pd controlpanel;
 #N canvas 371 161 1203 746 midipatch 0;
 #X obj 36 42 r 0_0-dimval;
 #X obj 1058 460 makenote;
@@ -756,8 +756,7 @@
 #X connect 39 0 43 5;
 #X connect 43 0 32 0;
 #X restore 350 127 pd bretter_gui_generation;
-#X text 39 280 lamp decay funktioniert nicht \, wenn es hoch ist;
-#N canvas 900 134 986 706 comport_interface 0;
+#N canvas 900 134 986 706 comport_interface 1;
 #X obj 218 378 print rechts comport;
 #X obj 109 337 comport 8 115200;
 #X obj 310 436 print;
@@ -913,7 +912,7 @@ DA WAR;
 #X connect 15 0 16 0;
 #X connect 15 1 17 0;
 #X restore 548 100 pd comport_interface;
-#N canvas 0 96 1920 984 audiosprefs 1;
+#N canvas 0 96 1920 984 audiosprefs 0;
 #X obj 88 242 audiosettings;
 #X obj 88 45 loadbang;
 #X obj 88 68 delay 400;
@@ -937,81 +936,99 @@ DA WAR;
 #X connect 8 2 7 0;
 #X connect 9 0 0 0;
 #X restore 548 74 pd audiosprefs;
-#X obj 31 694 r 0_0-0_0-dimval;
+#X obj -11 647 r 0_0-0_0-dimval;
 #X obj 818 1241 dac~ 1 2;
 #X obj 843 190 mode_decider;
-#X obj 159 691 r 0_0-0_1-dimval;
-#X obj 158 760 sensor_instr_bang;
-#X obj -31 760 sensor_instr_bang;
-#X floatatom 31 719 5 0 0 0 - - -;
-#X floatatom 176 725 5 0 0 0 - - -;
-#X floatatom 315 711 5 0 0 0 - - -;
-#X text 41 627 sensor 1;
-#X text 163 633 sensor2;
-#X text 310 634 sensor3;
-#X text 458 637 sensor 4;
-#X text 580 643 sensor5;
-#X text 727 644 sensor6;
-#X obj 16 863 print;
-#X obj 315 686 r 0_0-0_2-dimval;
-#X floatatom 459 712 5 0 0 0 - - -;
-#X obj 459 687 r 0_0-0_3-dimval;
-#X floatatom 588 705 5 0 0 0 - - -;
-#X obj 588 680 r 0_0-0_4-dimval;
-#X floatatom 737 713 5 0 0 0 - - -;
-#X obj 737 688 r 0_0-0_5-dimval;
+#X obj 147 661 r 0_0-0_1-dimval;
+#X floatatom -11 680 5 0 0 0 - - -;
+#X floatatom 147 685 5 0 0 0 - - -;
+#X floatatom 303 681 5 0 0 0 - - -;
+#X text 26 616 sensor 1;
+#X text 148 622 sensor2;
+#X text 295 623 sensor3;
+#X text 458 585 sensor 4;
+#X text 581 596 sensor5;
+#X text 737 628 sensor6;
+#X obj 303 656 r 0_0-0_2-dimval;
+#X floatatom 456 646 5 0 0 0 - - -;
+#X obj 456 621 r 0_0-0_3-dimval;
+#X floatatom 589 658 5 0 0 0 - - -;
+#X obj 589 633 r 0_0-0_4-dimval;
+#X floatatom 739 682 5 0 0 0 - - -;
+#X obj 739 657 r 0_0-0_5-dimval;
 #X obj 547 186 jepp_merge;
-#X obj -31 831 s trigger_lamp1;
+#X obj -9 826 s trigger_lamp1;
 #X obj 148 826 s trigger_lamp2;
-#X obj 301 757 sensor_instr_bang;
 #X obj 303 824 s trigger_lamp3;
-#X obj 457 763 sensor_instr_bang;
-#X obj 459 829 s trigger_lamp4;
-#X obj 590 766 sensor_instr_bang;
-#X obj 592 832 s trigger_lamp5;
-#X obj 728 769 sensor_instr_bang;
-#X obj 730 835 s trigger_lamp6;
+#X obj 456 826 s trigger_lamp4;
+#X obj 582 825 s trigger_lamp5;
+#X obj 739 823 s trigger_lamp6;
 #X text 771 98 Librarys: else comport ggee(raspi only) iem;
 #X obj 709 41 declare -path usr/lib/pd/extra/iemlib/;
-#X obj -31 785 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj -2 926 s;
+#X obj -11 729 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 91 727 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113 -1
+-1;
+#X obj 147 736 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 249 734 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113
 -1 -1;
-#X obj 158 785 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 303 731 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 405 729 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113
 -1 -1;
-#X obj 301 782 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 456 731 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 549 730 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113
 -1 -1;
-#X obj 457 788 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 582 731 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 677 730 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113
 -1 -1;
-#X obj 590 791 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 739 736 bng 15 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 834 737 bng 15 250 50 0 empty empty empty 17 7 0 10 -258113
 -1 -1;
-#X obj 728 794 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 456 706 entprellen 600;
+#X obj 582 706 entprellen 600;
+#X obj 739 711 entprellen 600;
+#X obj -11 704 entprellen 600;
+#X obj 147 711 entprellen 600;
+#X obj 303 706 entprellen 600;
 #X connect 0 0 5 0;
 #X connect 1 0 16 0;
 #X connect 2 0 5 0;
 #X connect 3 0 4 0;
 #X connect 7 0 8 0;
 #X connect 11 0 9 0;
-#X connect 20 0 25 0;
-#X connect 20 0 26 0;
-#X connect 23 0 24 0;
-#X connect 23 0 27 0;
-#X connect 24 0 57 0;
-#X connect 25 0 56 0;
-#X connect 28 0 46 0;
-#X connect 36 0 28 0;
-#X connect 37 0 48 0;
+#X connect 19 0 23 0;
+#X connect 22 0 24 0;
+#X connect 23 0 64 0;
+#X connect 24 0 65 0;
+#X connect 25 0 66 0;
+#X connect 32 0 25 0;
+#X connect 33 0 61 0;
+#X connect 34 0 33 0;
+#X connect 35 0 62 0;
+#X connect 36 0 35 0;
+#X connect 37 0 63 0;
 #X connect 38 0 37 0;
-#X connect 39 0 50 0;
-#X connect 40 0 39 0;
-#X connect 41 0 52 0;
-#X connect 42 0 41 0;
-#X connect 46 0 58 0;
-#X connect 48 0 59 0;
-#X connect 50 0 60 0;
-#X connect 52 0 61 0;
-#X connect 56 0 44 0;
-#X connect 57 0 45 0;
-#X connect 58 0 47 0;
-#X connect 59 0 49 0;
-#X connect 60 0 51 0;
-#X connect 61 0 53 0;
+#X connect 49 0 40 0;
+#X connect 51 0 41 0;
+#X connect 53 0 42 0;
+#X connect 55 0 43 0;
+#X connect 57 0 44 0;
+#X connect 59 0 45 0;
+#X connect 61 0 55 0;
+#X connect 61 1 56 0;
+#X connect 62 0 57 0;
+#X connect 62 1 58 0;
+#X connect 63 0 59 0;
+#X connect 63 1 60 0;
+#X connect 64 0 49 0;
+#X connect 64 1 50 0;
+#X connect 65 0 51 0;
+#X connect 65 1 52 0;
+#X connect 66 0 53 0;
+#X connect 66 1 54 0;
