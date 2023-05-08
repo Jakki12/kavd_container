@@ -1,0 +1,51 @@
+#N canvas 730 122 898 584 10;
+#X obj 83 46 inlet sensorstream;
+#X obj 68 113 f 1;
+#X text 95 119 alter sensorwert;
+#X text 212 178 ist neuer sensorwert > alter sensortwert?;
+#X obj 120 179 expr $f1 > $f2;
+#X msg 75 12 1;
+#X msg 111 12 1;
+#X msg 149 13 1;
+#X msg 190 16 2;
+#X obj 120 216 route 1;
+#X obj 120 350 f;
+#X obj 83 69 t f f f b;
+#X obj 117 100 s \$0-aktuellerSensorwert;
+#X obj 135 323 r \$0-aktuellerSensorwert;
+#X obj 120 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 120 268 delay \$1;
+#X text 184 270 entprell-Time;
+#X obj 120 406 expr $f1 > 1;
+#X text 212 405 ist der sensorwert nach dem delay groesser 1? d.h.
+ist nach dem delay noch jemand da?;
+#X obj 120 438 route 1;
+#X obj 120 488 outlet valid_human_sensor_bang;
+#X obj 120 461 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 213 191 d.h. hat etwas den sensor ausgeloest?;
+#X obj 157 461 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 326 489 outlet non_valid_sensor_bang;
+#X connect 0 0 11 0;
+#X connect 1 0 4 1;
+#X connect 4 0 9 0;
+#X connect 5 0 11 0;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 8 0 11 0;
+#X connect 9 0 15 0;
+#X connect 10 0 17 0;
+#X connect 11 0 1 1;
+#X connect 11 1 4 0;
+#X connect 11 2 12 0;
+#X connect 11 3 1 0;
+#X connect 13 0 10 1;
+#X connect 14 0 10 0;
+#X connect 15 0 14 0;
+#X connect 17 0 19 0;
+#X connect 19 0 21 0;
+#X connect 19 1 23 0;
+#X connect 21 0 20 0;
+#X connect 23 0 24 0;
